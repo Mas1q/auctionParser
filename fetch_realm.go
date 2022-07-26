@@ -15,7 +15,7 @@ var realm struct {
 	} `graphql:"parcels(first: 1, where: { id: $id })"`
 }
 
-func FetchRealmInfo(id string) interface{} {
+func FetchRealm(id string) interface{} {
 	variables := map[string]interface{}{
 		"id": graphql.String(id),
 	}

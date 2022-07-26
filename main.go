@@ -17,5 +17,5 @@ func print(v interface{}) {
 
 func main() {
 	fmt.Println("START!")
-	print(FetchRealmInfo("19555"))
+	print(FetchRealm("19555"))
 }

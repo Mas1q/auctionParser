@@ -5,7 +5,7 @@ import (
 	"github.com/hasura/go-graphql-client"
 )
 
-var realm struct {
+type RealmInfo struct {
 	Parcels []struct {
 		Id                    graphql.String
 		EquippedInstallations []struct {
@@ -15,16 +15,18 @@ var realm struct {
 	} `graphql:"parcels(first: 1, where: { id: $id })"`
 }
 
-func FetchRealm(id string) interface{} {
+func (*RealmInfo) FetchRealmInfo(id string) (*RealmInfo, error) {
+	realm := &RealmInfo{}
 	variables := map[string]interface{}{
 		"id": graphql.String(id),
 	}
 
 	client := graphql.NewClient("https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic", nil)
+
 	err := client.Query(context.Background(), &realm, variables)
 	if err != nil {
-		panic(err)
+		return realm, err
 	}
 
-	return realm
+	return realm, nil
 }
